@@ -61,13 +61,6 @@ spring:
             class: javax.net.ssl.SSLSocketFactory
         debug: true
 
-mybatis-plus:
-  global-config:
-    db-config:
-      id-type: auto
-      logic-delete-field: deleted
-      logic-delete-value: 1
-      logic-not-delete-value: 0
 
 project:
   folder: D:/code/Java/TaYangPan
