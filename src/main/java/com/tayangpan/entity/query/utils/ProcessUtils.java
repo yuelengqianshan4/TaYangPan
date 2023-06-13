@@ -1,4 +1,4 @@
-package com.tayangpan.utils;
+package com.tayangpan.entity.query.utils;
 
 import com.tayangpan.exception.BusinessException;
 import org.slf4j.Logger;

@@ -1,10 +1,14 @@
 package com.tayangpan.entity.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
 public class FileInfoVO {
 
     /**
@@ -65,91 +69,4 @@ public class FileInfoVO {
      */
     private Integer status;
 
-    public String getFileId() {
-        return fileId;
-    }
-
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
-    }
-
-    public String getFilePid() {
-        return filePid;
-    }
-
-    public void setFilePid(String filePid) {
-        this.filePid = filePid;
-    }
-
-    public Long getFileSize() {
-        return fileSize;
-    }
-
-    public void setFileSize(Long fileSize) {
-        this.fileSize = fileSize;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getFileCover() {
-        return fileCover;
-    }
-
-    public void setFileCover(String fileCover) {
-        this.fileCover = fileCover;
-    }
-
-    public Date getRecoveryTime() {
-        return recoveryTime;
-    }
-
-    public void setRecoveryTime(Date recoveryTime) {
-        this.recoveryTime = recoveryTime;
-    }
-
-    public Integer getFolderType() {
-        return folderType;
-    }
-
-    public void setFolderType(Integer folderType) {
-        this.folderType = folderType;
-    }
-
-    public Integer getFileCategory() {
-        return fileCategory;
-    }
-
-    public void setFileCategory(Integer fileCategory) {
-        this.fileCategory = fileCategory;
-    }
-
-    public Integer getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(Integer fileType) {
-        this.fileType = fileType;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
 }

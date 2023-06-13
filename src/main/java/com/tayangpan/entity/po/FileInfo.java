@@ -2,7 +2,9 @@ package com.tayangpan.entity.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tayangpan.entity.enums.DateTimePatternEnum;
-import com.tayangpan.utils.DateUtil;
+import com.tayangpan.entity.query.utils.DateUtil;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -12,6 +14,8 @@ import java.util.Date;
 /**
  * 文件信息
  */
+@Data
+@NoArgsConstructor
 public class FileInfo implements Serializable {
 
 
@@ -102,142 +106,6 @@ public class FileInfo implements Serializable {
     private Integer delFlag;
 
     private String nickName;
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
-    }
-
-    public String getFileId() {
-        return this.fileId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public void setFileMd5(String fileMd5) {
-        this.fileMd5 = fileMd5;
-    }
-
-    public String getFileMd5() {
-        return this.fileMd5;
-    }
-
-    public void setFilePid(String filePid) {
-        this.filePid = filePid;
-    }
-
-    public String getFilePid() {
-        return this.filePid;
-    }
-
-    public void setFileSize(Long fileSize) {
-        this.fileSize = fileSize;
-    }
-
-    public Long getFileSize() {
-        return this.fileSize;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getFileName() {
-        return this.fileName;
-    }
-
-    public void setFileCover(String fileCover) {
-        this.fileCover = fileCover;
-    }
-
-    public String getFileCover() {
-        return this.fileCover;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public String getFilePath() {
-        return this.filePath;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public Date getLastUpdateTime() {
-        return this.lastUpdateTime;
-    }
-
-    public void setFolderType(Integer folderType) {
-        this.folderType = folderType;
-    }
-
-    public Integer getFolderType() {
-        return this.folderType;
-    }
-
-    public void setFileCategory(Integer fileCategory) {
-        this.fileCategory = fileCategory;
-    }
-
-    public Integer getFileCategory() {
-        return this.fileCategory;
-    }
-
-    public void setFileType(Integer fileType) {
-        this.fileType = fileType;
-    }
-
-    public Integer getFileType() {
-        return this.fileType;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getStatus() {
-        return this.status;
-    }
-
-    public void setRecoveryTime(Date recoveryTime) {
-        this.recoveryTime = recoveryTime;
-    }
-
-    public Date getRecoveryTime() {
-        return this.recoveryTime;
-    }
-
-    public void setDelFlag(Integer delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    public Integer getDelFlag() {
-        return this.delFlag;
-    }
 
     @Override
     public String toString() {

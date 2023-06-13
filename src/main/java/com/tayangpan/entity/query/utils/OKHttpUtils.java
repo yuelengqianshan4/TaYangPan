@@ -1,4 +1,4 @@
-package com.tayangpan.utils;
+package com.tayangpan.entity.query.utils;
 
 import com.tayangpan.entity.enums.ResponseCodeEnum;
 import com.tayangpan.exception.BusinessException;

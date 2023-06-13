@@ -2,7 +2,9 @@ package com.tayangpan.entity.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tayangpan.entity.enums.DateTimePatternEnum;
-import com.tayangpan.utils.DateUtil;
+import com.tayangpan.entity.query.utils.DateUtil;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -12,6 +14,8 @@ import java.util.Date;
 /**
  * 分享信息
  */
+@Data
+@NoArgsConstructor
 public class FileShare implements Serializable {
 
 
@@ -81,110 +85,6 @@ public class FileShare implements Serializable {
      * 封面
      */
     private String fileCover;
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public void setShareId(String shareId) {
-        this.shareId = shareId;
-    }
-
-    public String getShareId() {
-        return this.shareId;
-    }
-
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
-    }
-
-    public String getFileId() {
-        return this.fileId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public void setValidType(Integer validType) {
-        this.validType = validType;
-    }
-
-    public Integer getValidType() {
-        return this.validType;
-    }
-
-    public void setExpireTime(Date expireTime) {
-        this.expireTime = expireTime;
-    }
-
-    public Date getExpireTime() {
-        return this.expireTime;
-    }
-
-    public void setShareTime(Date shareTime) {
-        this.shareTime = shareTime;
-    }
-
-    public Date getShareTime() {
-        return this.shareTime;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-
-    public void setShowCount(Integer showCount) {
-        this.showCount = showCount;
-    }
-
-    public Integer getShowCount() {
-        return this.showCount;
-    }
-
-    public Integer getFolderType() {
-        return folderType;
-    }
-
-    public void setFolderType(Integer folderType) {
-        this.folderType = folderType;
-    }
-
-    public Integer getFileCategory() {
-        return fileCategory;
-    }
-
-    public void setFileCategory(Integer fileCategory) {
-        this.fileCategory = fileCategory;
-    }
-
-    public Integer getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(Integer fileType) {
-        this.fileType = fileType;
-    }
-
-    public String getFileCover() {
-        return fileCover;
-    }
-
-    public void setFileCover(String fileCover) {
-        this.fileCover = fileCover;
-    }
 
     @Override
     public String toString() {

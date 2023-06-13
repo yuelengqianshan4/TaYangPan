@@ -1,4 +1,4 @@
-package com.tayangpan.utils;
+package com.tayangpan.entity.query.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
