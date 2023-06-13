@@ -16,8 +16,8 @@
     <artifactId>easypan</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <name>easypan</name>
-    <description>easypan</description>
+    <name>tayangpan</name>
+    <description>tayangpan</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -160,7 +160,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.tayangpan.EasyPanApplication</mainClass>
+                    <mainClass>com.tayangpan.TaYangPanApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
