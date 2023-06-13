@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CopyTools {
-    public static <T, S> List<T> copyList(List<S> sList, Class<T> classz) {
+    public static <T, S> List<T> copyList(List<S> sList, Class<T> _class) {
         List<T> list = new ArrayList<T>();
         for (S s : sList) {
             T t = null;
             try {
-                t = classz.newInstance();
+                t = _class.newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -21,10 +21,10 @@ public class CopyTools {
         return list;
     }
 
-    public static <T, S> T copy(S s, Class<T> classz) {
+    public static <T, S> T copy(S s, Class<T> _class) {
         T t = null;
         try {
-            t = classz.newInstance();
+            t = _class.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }

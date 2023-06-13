@@ -14,8 +14,8 @@ public class AppConfig {
     /**
      * 文件目录
      */
-    @Value("${project.folder:}")
-    private String projectFolder;
+    @Value("${data.folder:}")
+    private String dataFolder;
 
     /**
      * 发送人
@@ -34,11 +34,11 @@ public class AppConfig {
     @Value("${dev:false}")
     private Boolean dev;
 
-    public String getProjectFolder() {
-        if (!StringTools.isEmpty(projectFolder) && !projectFolder.endsWith("/")) {
-            projectFolder = projectFolder + "/";
+    public String getDataFolder() {
+        if (!StringTools.isEmpty(dataFolder) && !dataFolder.endsWith("/")) {
+            dataFolder = dataFolder + "/";
         }
-        return projectFolder;
+        return dataFolder;
     }
 
     public static Logger getLogger() {

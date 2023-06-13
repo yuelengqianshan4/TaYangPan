@@ -109,7 +109,7 @@ public class GlobalOperationAspect {
         }
 
         if (checkAdmin && !sessionUser.getIsAdmin()) {
-            throw new BusinessException(ResponseCodeEnum.CODE_404);
+            throw new BusinessException(ResponseCodeEnum.CODE_602);
         }
     }
 

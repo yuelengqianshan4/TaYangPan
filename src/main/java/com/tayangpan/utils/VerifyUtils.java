@@ -21,10 +21,5 @@ public class VerifyUtils {
     public static boolean verify(VerifyRegexEnum regex, String value) {
         return verify(regex.getRegex(), value);
     }
-
-    public static void main(String[] args) {
-        System.out.println(new File("E:\\代码生成\\..\\workspace-java").exists());
-
-    }
 }
 

@@ -63,8 +63,8 @@ spring:
 
 
 
-project:
-  folder: D:/code/Java/TaYangPan
+data:
+  folder: ${TYP_DATA_PATH}
 
 log:
   root:

@@ -53,7 +53,7 @@ public class CommonFileController extends ABaseController {
             return;
         }
         String imageSuffix = StringTools.getFileSuffix(imageName);
-        String filePath = appConfig.getProjectFolder() + Constants.FILE_FOLDER_FILE + imageFolder + "/" + imageName;
+        String filePath = appConfig.getDataFolder() + Constants.FILE_FOLDER_FILE + imageFolder + "/" + imageName;
         imageSuffix = imageSuffix.replace(".", "");
         String contentType = "image/" + imageSuffix;
         response.setContentType(contentType);
@@ -89,7 +89,7 @@ public class CommonFileController extends ABaseController {
             }
             String fileName = fileInfo.getFilePath();
             fileName = StringTools.getFileNameNoSuffix(fileName) + "/" + fileId;
-            filePath = appConfig.getProjectFolder() + Constants.FILE_FOLDER_FILE + fileName;
+            filePath = appConfig.getDataFolder() + Constants.FILE_FOLDER_FILE + fileName;
         } else {
             FileInfo fileInfo = fileInfoService.getFileInfoByFileIdAndUserId(fileId, userId);
             if (fileInfo == null) {
@@ -99,9 +99,9 @@ public class CommonFileController extends ABaseController {
             if (FileCategoryEnums.VIDEO.getCategory().equals(fileInfo.getFileCategory())) {
                 //重新设置文件路径
                 String fileNameNoSuffix = StringTools.getFileNameNoSuffix(fileInfo.getFilePath());
-                filePath = appConfig.getProjectFolder() + Constants.FILE_FOLDER_FILE + fileNameNoSuffix + "/" + Constants.M3U8_NAME;
+                filePath = appConfig.getDataFolder() + Constants.FILE_FOLDER_FILE + fileNameNoSuffix + "/" + Constants.M3U8_NAME;
             } else {
-                filePath = appConfig.getProjectFolder() + Constants.FILE_FOLDER_FILE + fileInfo.getFilePath();
+                filePath = appConfig.getDataFolder() + Constants.FILE_FOLDER_FILE + fileInfo.getFilePath();
             }
         }
         File file = new File(filePath);
@@ -135,7 +135,7 @@ public class CommonFileController extends ABaseController {
         if (null == downloadFileDto) {
             return;
         }
-        String filePath = appConfig.getProjectFolder() + Constants.FILE_FOLDER_FILE + downloadFileDto.getFilePath();
+        String filePath = appConfig.getDataFolder() + Constants.FILE_FOLDER_FILE + downloadFileDto.getFilePath();
         String fileName = downloadFileDto.getFileName();
         response.setContentType("application/x-msdownload; charset=UTF-8");
         if (request.getHeader("User-Agent").toLowerCase().indexOf("msie") > 0) {//IE浏览器

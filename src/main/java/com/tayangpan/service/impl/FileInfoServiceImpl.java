@@ -201,7 +201,7 @@ public class FileInfoServiceImpl implements FileInfoService {
                 }
             }
             //暂存在临时目录
-            String tempFolderName = appConfig.getProjectFolder() + Constants.FILE_FOLDER_TEMP;
+            String tempFolderName = appConfig.getDataFolder() + Constants.FILE_FOLDER_TEMP;
             String currentUserFolderName = webUserDto.getUserId() + fileId;
             //创建临时目录
             tempFileFolder = new File(tempFolderName + currentUserFolderName);
@@ -316,7 +316,7 @@ public class FileInfoServiceImpl implements FileInfoService {
                 return;
             }
             //临时目录
-            String tempFolderName = appConfig.getProjectFolder() + Constants.FILE_FOLDER_TEMP;
+            String tempFolderName = appConfig.getDataFolder() + Constants.FILE_FOLDER_TEMP;
             String currentUserFolderName = webUserDto.getUserId() + fileId;
             File fileFolder = new File(tempFolderName + currentUserFolderName);
             if (!fileFolder.exists()) {
@@ -326,7 +326,7 @@ public class FileInfoServiceImpl implements FileInfoService {
             String fileSuffix = StringTools.getFileSuffix(fileInfo.getFileName());
             String month = DateUtil.format(fileInfo.getCreateTime(), DateTimePatternEnum.YYYYMM.getPattern());
             //目标目录
-            String targetFolderName = appConfig.getProjectFolder() + Constants.FILE_FOLDER_FILE;
+            String targetFolderName = appConfig.getDataFolder() + Constants.FILE_FOLDER_FILE;
             File targetFolder = new File(targetFolderName + "/" + month);
             if (!targetFolder.exists()) {
                 targetFolder.mkdirs();

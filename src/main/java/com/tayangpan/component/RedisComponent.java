@@ -29,7 +29,7 @@ public class RedisComponent {
     /**
      * 获取系统设置
      *
-     * @return
+     * @return sysSettingsDto
      */
     public SysSettingsDto getSysSettingsDto() {
         SysSettingsDto sysSettingsDto = (SysSettingsDto) redisUtils.get(Constants.REDIS_KEY_SYS_SETTING);

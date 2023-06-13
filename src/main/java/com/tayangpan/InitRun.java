@@ -27,10 +27,10 @@ public class InitRun implements ApplicationRunner {
         try {
             dataSource.getConnection();
             redisComponent.getSysSettingsDto();
-            logger.error("服务启动成功，可以开始愉快的开发了");
+            logger.info("服务启动成功，可以开始愉快的开发了");
         } catch (Exception e) {
             logger.error(e.toString());
-            logger.error("数据库或者redis设置失败，请检查配置");
+            logger.error("配置错误");
             throw new BusinessException("服务启动失败");
         }
     }

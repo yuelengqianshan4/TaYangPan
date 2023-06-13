@@ -173,19 +173,20 @@ public class AccountController extends ABaseController {
     @GlobalInterceptor(checkLogin = false, checkParams = true)
     public void getAvatar(HttpServletResponse response, @VerifyParam(required = true) @PathVariable("userId") String userId) {
         String avatarFolderName = Constants.FILE_FOLDER_FILE + Constants.FILE_FOLDER_AVATAR_NAME;
-        File folder = new File(appConfig.getProjectFolder() + avatarFolderName);
+        File folder = new File(appConfig.getDataFolder() + avatarFolderName);
+        System.out.println(appConfig.getDataFolder());
         if (!folder.exists()) {
             folder.mkdirs();
         }
 
-        String avatarPath = appConfig.getProjectFolder() + avatarFolderName + userId + Constants.AVATAR_SUFFIX;
+        String avatarPath = appConfig.getDataFolder() + avatarFolderName + userId + Constants.AVATAR_SUFFIX;
         File file = new File(avatarPath);
         if (!file.exists()) {
-            if (!new File(appConfig.getProjectFolder() + avatarFolderName + Constants.AVATAR_DEFUALT).exists()) {
+            if (!new File(appConfig.getDataFolder() + avatarFolderName + Constants.AVATAR_DEFUALT).exists()) {
                 printNoDefaultImage(response);
                 return;
             }
-            avatarPath = appConfig.getProjectFolder() + avatarFolderName + Constants.AVATAR_DEFUALT;
+            avatarPath = appConfig.getDataFolder() + avatarFolderName + Constants.AVATAR_DEFUALT;
         }
         response.setContentType("image/jpg");
         readFile(response, avatarPath);
@@ -230,7 +231,7 @@ public class AccountController extends ABaseController {
     @GlobalInterceptor
     public ResponseVO updateUserAvatar(HttpSession session, MultipartFile avatar) {
         SessionWebUserDto webUserDto = getUserInfoFromSession(session);
-        String baseFolder = appConfig.getProjectFolder() + Constants.FILE_FOLDER_FILE;
+        String baseFolder = appConfig.getDataFolder() + Constants.FILE_FOLDER_FILE;
         File targetFileFolder = new File(baseFolder + Constants.FILE_FOLDER_AVATAR_NAME);
         if (!targetFileFolder.exists()) {
             targetFileFolder.mkdirs();
@@ -243,7 +244,6 @@ public class AccountController extends ABaseController {
         }
 
         UserInfo userInfo = new UserInfo();
-        userInfo.setQqAvatar("");
         userInfoService.updateUserInfoByUserId(userInfo, webUserDto.getUserId());
         webUserDto.setAvatar(null);
         session.setAttribute(Constants.SESSION_KEY, webUserDto);
