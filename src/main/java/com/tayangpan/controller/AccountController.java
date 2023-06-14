@@ -88,7 +88,6 @@ public class AccountController extends ABaseController {
                                     @VerifyParam(required = true, regex = VerifyRegexEnum.EMAIL, max = 150) String email,
                                     @VerifyParam(required = true) String checkCode,
                                     @VerifyParam(required = true) Integer type) {
-        System.out.println("进入");
         try {
             if (!checkCode.equalsIgnoreCase((String) session.getAttribute(Constants.CHECK_CODE_KEY_EMAIL))) {
                 throw new BusinessException("图片验证码不正确");
