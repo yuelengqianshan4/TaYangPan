@@ -67,7 +67,7 @@ public class ABaseController {
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                return;
+                throw new Exception("文件不存在");
             }
             in = new FileInputStream(file);
             byte[] byteData = new byte[1024];
@@ -78,20 +78,21 @@ public class ABaseController {
             }
             out.flush();
         } catch (Exception e) {
+            logger.error(e.toString());
             logger.error("读取文件异常", e);
         } finally {
             if (out != null) {
                 try {
                     out.close();
                 } catch (IOException e) {
-                    logger.error("IO异常", e);
+                    logger.error("输出流关闭失败", e);
                 }
             }
             if (in != null) {
                 try {
                     in.close();
                 } catch (IOException e) {
-                    logger.error("IO异常", e);
+                    logger.error("文件输入流关闭失败", e);
                 }
             }
         }
