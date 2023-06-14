@@ -149,6 +149,8 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @Override
     public Integer deleteFileInfoByFileIdAndUserId(String fileId, String userId) {
+        FileInfo fileInfo =  fileInfoMapper.selectByFileIdAndUserId(fileId,userId);
+        deleteLocalFile(fileInfo);
         return this.fileInfoMapper.deleteByFileIdAndUserId(fileId, userId);
     }
 
@@ -660,7 +662,6 @@ public class FileInfoServiceImpl implements FileInfoService {
     @Transactional(rollbackFor = Exception.class)
     public void delFileBatch(String userId, String fileIds, Boolean adminOp) {
         String[] fileIdArray = fileIds.split(",");
-
         FileInfoQuery query = new FileInfoQuery();
         query.setUserId(userId);
         query.setFileIdArray(fileIdArray);
@@ -673,11 +674,21 @@ public class FileInfoServiceImpl implements FileInfoService {
         for (FileInfo fileInfo : fileInfoList) {
             if (FileFolderTypeEnums.FOLDER.getType().equals(fileInfo.getFolderType())) {
                 findAllSubFolderFileIdList(delFileSubFolderFileIdList, userId, fileInfo.getFileId(), FileDelFlagEnums.DEL.getFlag());
+            }else{
+                deleteLocalFile(fileInfo);
             }
         }
 
         //删除所选文件，子目录中的文件
         if (!delFileSubFolderFileIdList.isEmpty()) {
+            query.setFileIdArray(null);
+            query.setFilePidArray(delFileSubFolderFileIdList.toArray(new String[delFileSubFolderFileIdList.size()]));
+            query.setDelFlag(adminOp ? null : FileDelFlagEnums.DEL.getFlag());
+            fileInfoList = this.fileInfoMapper.selectList(query);
+            if(!fileInfoList.isEmpty())
+                for (FileInfo fileInfo : fileInfoList) {
+                        deleteLocalFile(fileInfo);
+                }
             this.fileInfoMapper.delFileBatch(userId, delFileSubFolderFileIdList, null, adminOp ? null : FileDelFlagEnums.DEL.getFlag());
         }
         //删除所选文件
@@ -775,6 +786,34 @@ public class FileInfoServiceImpl implements FileInfoService {
 
     @Override
     public void deleteFileByUserId(String userId) {
+        FileInfoQuery query = new FileInfoQuery();
+        query.setUserId(userId);
+        List<FileInfo> files = this.fileInfoMapper.selectList(query);
+        for (FileInfo file : files) {
+            deleteLocalFile(file);
+        }
         this.fileInfoMapper.deleteFileByUserId(userId);
+    }
+
+    private void deleteLocalFile(FileInfo fileInfo){
+        if(fileInfo == null || FileFolderTypeEnums.FOLDER.getType().equals(fileInfo.getFolderType()))
+            return;
+        FileInfoQuery query = new FileInfoQuery();
+        query.setFilePath(fileInfo.getFilePath());
+        int count = this.fileInfoMapper.selectCount(query);
+        if(count > 1)
+            return;
+        String path = appConfig.getDataFolder() + Constants.FILE_FOLDER_FILE + fileInfo.getFilePath();
+        if(StringTools.pathIsOk(path)){
+            try{
+                File file = new File(path);
+                if(!file.exists())
+                    throw new Exception(fileInfo.getFileName() + "文件本地不存在");
+                if(!file.delete())
+                    throw new Exception(fileInfo.getFileName() + "本地删除失败");
+            }catch(Exception e){
+                logger.error(e.toString());
+            }
+        }
     }
 }
