@@ -126,6 +126,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     @Override
     public Integer updateUserInfoByUserId(UserInfo bean, String userId) {
+        System.out.println(userId);
         return this.userInfoMapper.updateByUserId(bean, userId);
     }
 

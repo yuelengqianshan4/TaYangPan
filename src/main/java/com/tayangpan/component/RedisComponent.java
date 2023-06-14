@@ -50,7 +50,7 @@ public class RedisComponent {
     }
 
     public void saveDownloadCode(String code, DownloadFileDto downloadFileDto) {
-        redisUtils.setex(Constants.REDIS_KEY_DOWNLOAD + code, downloadFileDto, Constants.REDIS_KEY_EXPIRES_FIVE_MIN);
+        redisUtils.setex(Constants.REDIS_KEY_DOWNLOAD + code, downloadFileDto, Constants.REDIS_KEY_EXPIRES_ONE_MIN);
     }
 
     public DownloadFileDto getDownloadCode(String code) {

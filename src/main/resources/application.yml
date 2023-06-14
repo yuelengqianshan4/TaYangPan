@@ -22,7 +22,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${TYP_DB_HOST}:${TYP_MYSQL_PORT}/${TYP_DB_NAME}
+    url: jdbc:mysql://localhost:${TYP_MYSQL_PORT}/${TYP_DB_NAME}
     username: ${TYP_DB_USER}
     password: ${TYP_DB_PASSWORD}
     hikari:
@@ -38,7 +38,7 @@ spring:
 
   redis:
     database: 0
-    host: ${TYP_DB_HOST}
+    host: localhost
     port: ${TYP_REDIS_PORT}
     jedis:
       pool:

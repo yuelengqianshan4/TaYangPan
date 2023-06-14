@@ -39,7 +39,7 @@ public class Constants {
 
     public static final String CHECK_CODE_KEY_EMAIL = "check_code_key_email";
 
-    public static final String AVATAR_SUFFIX = ".jpg";
+    public static final String AVATAR_SUFFIX = ".png";
 
     public static final String FILE_FOLDER_AVATAR_NAME = "avatar/";
 

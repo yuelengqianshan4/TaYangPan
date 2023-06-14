@@ -241,11 +241,6 @@ public class AccountController extends ABaseController {
         } catch (Exception e) {
             logger.error("上传头像失败", e);
         }
-
-        UserInfo userInfo = new UserInfo();
-        userInfoService.updateUserInfoByUserId(userInfo, webUserDto.getUserId());
-        webUserDto.setAvatar(null);
-        session.setAttribute(Constants.SESSION_KEY, webUserDto);
         return getSuccessResponseVO(null);
     }
 

@@ -78,7 +78,7 @@ public class CommonFileController extends ABaseController {
                     return;
                 }
 
-                //更具当前用户id和路径去查询当前用户是否有该文件，如果没有直接返回
+                //根据当前用户id和路径去查询当前用户是否有该文件，如果没有直接返回
                 fileInfoQuery = new FileInfoQuery();
                 fileInfoQuery.setFilePath(fileInfo.getFilePath());
                 fileInfoQuery.setUserId(userId);
