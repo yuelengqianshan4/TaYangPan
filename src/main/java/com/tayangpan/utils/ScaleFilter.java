@@ -60,11 +60,4 @@ public class ScaleFilter {
             logger.error("压缩图片失败");
         }
     }
-
-    public static void main(String[] args) {
-        compressImageWidthPercentage(new File("C:\\Users\\Administrator\\Pictures\\微信图片_20230107141436.png"), new BigDecimal(0.7),
-                new File("C:\\Users\\Administrator" +
-                        "\\Pictures" +
-                        "\\微信图片_202106281029182.jpg"));
-    }
 }

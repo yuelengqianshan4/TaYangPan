@@ -58,11 +58,8 @@ public class FileInfoController extends CommonFileController {
                                  @VerifyParam(required = true) String fileMd5,
                                  @VerifyParam(required = true) Integer chunkIndex,
                                  @VerifyParam(required = true) Integer chunks) {
-    System.out.println("傻逼");
         SessionWebUserDto webUserDto = getUserInfoFromSession(session);
-        System.out.println("草泥马");
         UploadResultDto resultDto = fileInfoService.uploadFile(webUserDto, fileId, file, fileName, filePid, fileMd5, chunkIndex, chunks);
-        System.out.println("去你妈的");
         return getSuccessResponseVO(resultDto);
     }
 

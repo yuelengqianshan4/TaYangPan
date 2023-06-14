@@ -178,7 +178,6 @@ public class FileInfoServiceImpl implements FileInfoService {
                 //秒传
                 if (!dbFileList.isEmpty()) {
                     FileInfo dbFile = dbFileList.get(0);
-                    System.out.println(dbFile);
                     //判断文件状态
                     if (dbFile.getFileSize() + spaceDto.getUseSpace() > spaceDto.getTotalSpace()) {
                         throw new BusinessException(ResponseCodeEnum.CODE_904);
@@ -186,12 +185,10 @@ public class FileInfoServiceImpl implements FileInfoService {
                     dbFile.setFileId(fileId);
                     dbFile.setFilePid(filePid);
                     dbFile.setUserId(webUserDto.getUserId());
-                    dbFile.setFileMd5(null);
                     dbFile.setCreateTime(curDate);
                     dbFile.setLastUpdateTime(curDate);
                     dbFile.setStatus(FileStatusEnums.USING.getStatus());
                     dbFile.setDelFlag(FileDelFlagEnums.USING.getFlag());
-                    dbFile.setFileMd5(fileMd5);
                     fileName = autoRename(filePid, webUserDto.getUserId(), fileName);
                     dbFile.setFileName(fileName);
                     this.fileInfoMapper.insert(dbFile);
@@ -450,26 +447,17 @@ public class FileInfoServiceImpl implements FileInfoService {
             return fileInfo;
         }
         String filePid = fileInfo.getFilePid();
-        checkFileName(filePid, userId, fileName, fileInfo.getFolderType());
         //文件获取后缀
         if (FileFolderTypeEnums.FILE.getType().equals(fileInfo.getFolderType())) {
             fileName = fileName + StringTools.getFileSuffix(fileInfo.getFileName());
         }
+        checkFileName(filePid, userId, fileName, fileInfo.getFolderType());
         Date curDate = new Date();
         FileInfo dbInfo = new FileInfo();
         dbInfo.setFileName(fileName);
         dbInfo.setLastUpdateTime(curDate);
         this.fileInfoMapper.updateByFileIdAndUserId(dbInfo, fileId, userId);
 
-        FileInfoQuery fileInfoQuery = new FileInfoQuery();
-        fileInfoQuery.setFilePid(filePid);
-        fileInfoQuery.setUserId(userId);
-        fileInfoQuery.setFileName(fileName);
-        fileInfoQuery.setDelFlag(FileDelFlagEnums.USING.getFlag());
-        Integer count = this.fileInfoMapper.selectCount(fileInfoQuery);
-        if (count > 1) {
-            throw new BusinessException("文件名" + fileName + "已经存在");
-        }
         fileInfo.setFileName(fileName);
         fileInfo.setLastUpdateTime(curDate);
         return fileInfo;
@@ -492,6 +480,7 @@ public class FileInfoServiceImpl implements FileInfoService {
     @Transactional(rollbackFor = Exception.class)
     public FileInfo newFolder(String filePid, String userId, String folderName) {
         checkFileName(filePid, userId, folderName, FileFolderTypeEnums.FOLDER.getType());
+
         Date curDate = new Date();
         FileInfo fileInfo = new FileInfo();
         fileInfo.setFileId(StringTools.getRandomString(Constants.LENGTH_10));
@@ -504,19 +493,6 @@ public class FileInfoServiceImpl implements FileInfoService {
         fileInfo.setStatus(FileStatusEnums.USING.getStatus());
         fileInfo.setDelFlag(FileDelFlagEnums.USING.getFlag());
         this.fileInfoMapper.insert(fileInfo);
-
-        FileInfoQuery fileInfoQuery = new FileInfoQuery();
-        fileInfoQuery.setFilePid(filePid);
-        fileInfoQuery.setUserId(userId);
-        fileInfoQuery.setFileName(folderName);
-        fileInfoQuery.setFolderType(FileFolderTypeEnums.FOLDER.getType());
-        fileInfoQuery.setDelFlag(FileDelFlagEnums.USING.getFlag());
-        Integer count = this.fileInfoMapper.selectCount(fileInfoQuery);
-        if (count > 1) {
-            throw new BusinessException("文件夹" + folderName + "已经存在");
-        }
-        fileInfo.setFileName(folderName);
-        fileInfo.setLastUpdateTime(curDate);
         return fileInfo;
     }
 
@@ -809,8 +785,24 @@ public class FileInfoServiceImpl implements FileInfoService {
                 File file = new File(path);
                 if(!file.exists())
                     throw new Exception(fileInfo.getFileName() + "文件本地不存在");
+
+                if(fileInfo.getFileCover() != null){
+                    File cover = new File(appConfig.getDataFolder() + Constants.FILE_FOLDER_FILE + fileInfo.getFileCover());
+                    if(cover.exists() && !cover.delete()){
+                        logger.error(fileInfo.getFileName() + "封面删除失败");
+                    }
+                }
+
+                if(FileTypeEnums.VIDEO.getType().equals(fileInfo.getFileType())){
+                    int index = path.lastIndexOf('.');
+                    File slice = new File(path.substring(0,index));
+                    if(slice.exists() && slice.isDirectory()){
+                        FileUtils.deleteDirectory(slice);
+                    }
+                }
+
                 if(!file.delete())
-                    throw new Exception(fileInfo.getFileName() + "本地删除失败");
+                    logger.error(fileInfo.getFileName() + "本地删除失败");
             }catch(Exception e){
                 logger.error(e.toString());
             }
